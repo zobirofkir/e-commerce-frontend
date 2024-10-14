@@ -9,7 +9,24 @@ const SidebareComponent = () => {
         </h5>
       </div>
       <nav className="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
-        {/* Main Content */}
+      <div
+        role="button"
+        className="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+      >
+        <div className="grid mr-4 place-items-center">
+          {/* Product Icon */}
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" class="w-5 h-5">
+            <polygon points="22 7 12 2 2 7 2 17 12 22 22 17" stroke="currentColor" strokeLinejoin="round" />
+            <line stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" x1="2" x2="12" y1="7" y2="12" />
+            <line stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" x1="12" x2="12" y1="22" y2="12" />
+            <line stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" x1="22" x2="12" y1="7" y2="12" />
+            <line stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" x1="17" x2="7" y1="4.5" y2="9.5" />
+          </svg>
+        </div>
+        <a href='/products'>
+          Products
+        </a>
+      </div>
       </nav>
 
       {/* Login and Register Buttons Section */}

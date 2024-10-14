@@ -27,7 +27,7 @@ const ProductInfoScreen = () => {
 
 
                 <div>
-                <h1 className="text-5xl font-bold mb-4">{product.name}</h1>
+                <h1 className="text-5xl font-bold mb-4">{product.title}</h1>
                 <p className="text-gray-700 text-lg mb-6">
                     {product.description}
                 </p>
