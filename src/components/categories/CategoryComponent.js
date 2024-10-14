@@ -1,8 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CategoryComponent = () => {
   const [category, setCategory] = useState([]);
+  const navigate = useNavigate();
 
   const getCategories = async () => {
     try {
@@ -17,18 +19,21 @@ const CategoryComponent = () => {
     getCategories();
   }, []);
 
+  const openCategory = (id) => {
+    navigate(`/categories/${id}`);  // Navigate to CategoryScreen with the category id
+  }
+
   return (
     <div className='bg-white text-black mt-20 hidden md:block rounded-md'>
       <div className='flex overflow-x-auto p-2'> 
-        {category.map(category => (
-          <a
+        {category.map((category) => (
+          <button
             key={category.id}
-            href={`#${category.id}`}
             className='px-4 py-2 rounded-md hover:bg-gray-800 hover:text-white whitespace-nowrap'
-            aria-label={category.name}
+            onClick={() => openCategory(category.id)}  // Call openCategory with the category ID
           >
-            <span>{category.name}</span>
-          </a>
+            {category.name}
+          </button>
         ))}
       </div>
     </div>
