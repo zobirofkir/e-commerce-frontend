@@ -1,9 +1,14 @@
-import React from 'react'
+import React from 'react';
 
 const FooterComponent = () => {
   return (
-    <div>FooterComponent</div>
-  )
-}
+    <footer className="bg-gray-800 text-white py-6">
+      <div className="flex flex-col items-center ">
+        <h2 className="text-lg font-semibold">CSW SHOP</h2>
+        <p>&copy; {new Date().getFullYear()} csw shop. All rights reserved.</p>
+      </div>
+    </footer>
+  );
+};
 
-export default FooterComponent
+export default FooterComponent;
