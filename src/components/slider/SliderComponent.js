@@ -49,7 +49,7 @@ const SliderComponent = () => {
     }, [slides.length]);
 
     return (
-        <div className="relative w-full h-screen overflow-hidden mt-[100px] bg-gray-100">
+        <div className="relative w-full h-screen overflow-hidden mt-[80px] bg-gray-100 rounded-md">
             <div className="relative w-full h-full">
                 {slides.map((slide, index) => (
                     <div
@@ -62,12 +62,12 @@ const SliderComponent = () => {
                             alt={`Slide ${index + 1}`}
                         />
                         <div className="absolute inset-0 bg-black opacity-30" />
-                        <div className="absolute bottom-20 left-10 text-white z-10">
+                        <div className="absolute bottom-20 left-10 text-white ">
                             <h2 className="text-3xl font-bold">{slide.title}</h2>
                             <p className="mt-2">{slide.description}</p>
                             <a 
                                 href={slide.link}
-                                className="inline-block mt-4 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-200"
+                                className="inline-block mt-4 bg-black text-white py-2 px-4 rounded hover:bg-gray-900 rounded transition duration-200"
                             >
                                 {slide.buttonLabel}
                             </a>
@@ -76,12 +76,12 @@ const SliderComponent = () => {
                 ))}
             </div>
 
-            <div className="absolute flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse z-10">
+            <div className="absolute flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse ">
                 {slides.map((_, index) => (
                     <button
                         key={index}
                         type="button"
-                        className={`w-3 h-3 rounded-full ${currentIndex === index ? 'bg-blue-500' : 'bg-gray-300'}`}
+                        className={`w-3 h-3 rounded-full ${currentIndex === index ? 'bg-gray-500' : 'bg-gray-300'}`}
                         aria-current={currentIndex === index}
                         aria-label={`Slide ${index + 1}`}
                         onClick={() => setCurrentIndex(index)}
@@ -91,7 +91,7 @@ const SliderComponent = () => {
 
             <button
                 type="button"
-                className="absolute top-0 left-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none z-10"
+                className="absolute top-0 left-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none "
                 onClick={() => setCurrentIndex((currentIndex - 1 + slides.length) % slides.length)}
             >
                 <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
@@ -103,7 +103,7 @@ const SliderComponent = () => {
             </button>
             <button
                 type="button"
-                className="absolute top-0 right-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none z-10"
+                className="absolute top-0 right-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none "
                 onClick={() => setCurrentIndex((currentIndex + 1) % slides.length)}
             >
                 <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">

@@ -4,7 +4,7 @@ import Logo from '../../images/logo/logo.png'
 const NavLinkComponent = () => {
   return (
       <header>
-            <nav class="bg-white px-4 lg:px-6 py-2.5 z-10 fixed w-full">
+            <nav class="bg-white px-4 lg:px-6  z-10 fixed w-full">
                 <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                     <a href="/" class="flex items-center">
                         <img src={Logo} class="mr-3 h-20 w-20" alt="CSW SHOP" />
