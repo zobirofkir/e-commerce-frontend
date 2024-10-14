@@ -49,7 +49,7 @@ const SliderComponent = () => {
     }, [slides.length]);
 
     return (
-        <div className="relative w-full h-screen overflow-hidden mt-[80px] bg-gray-100 rounded-md">
+        <div className="relative w-full md:h-[750px] h-96 overflow-hidden mt-[90px] bg-gray-100 rounded-md">
             <div className="relative w-full h-full">
                 {slides.map((slide, index) => (
                     <div
@@ -58,7 +58,7 @@ const SliderComponent = () => {
                     >
                         <img
                             src={slide.img}
-                            className="w-full h-full object-cover"
+                            className="w-full md:h-full h-full object-cover rounded-md object-center"
                             alt={`Slide ${index + 1}`}
                         />
                         <div className="absolute inset-0 bg-black opacity-30" />

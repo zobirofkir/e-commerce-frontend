@@ -27,7 +27,7 @@ const ResetScreen = () => {
       if (err.response && err.response.status === 401) {
         setError('Sorry, we could not find a user with that email.');
       } else {
-        setError('An error occurred. Please try again.');
+        setError('Sorry, we could not find a user with that email please try again later.');
       }
       console.error(err);
     }
