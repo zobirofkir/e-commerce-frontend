@@ -26,7 +26,7 @@ const CategoryComponent = () => {
 
   return (
     <div className='bg-white text-black mt-20 hidden md:block rounded-md'>
-      <div className='flex overflow-x-auto p-2'>
+      <div className='flex overflow-x-auto p-2'> 
         {categories.map(category => (
           <a
             key={category.id}
