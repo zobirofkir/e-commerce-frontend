@@ -4,6 +4,7 @@ import Layout from './layouts/Layout';
 import HomeScreen from './screens/home/HomeScreen';
 import LoginScreen from './screens/login/LoginScreen';
 import RegisterScreen from './screens/register/RegisterScreen';
+import ResetScreen from './screens/reset/ResetScreen';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route index element={<HomeScreen />} />
           <Route path="login" element={<LoginScreen />} />
           <Route path="register" element={<RegisterScreen />} />
+          <Route path="reset" element={<ResetScreen />} />
         </Route>
       </Routes>
     </BrowserRouter>
