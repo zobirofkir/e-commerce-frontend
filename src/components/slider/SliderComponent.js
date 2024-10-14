@@ -49,7 +49,7 @@ const SliderComponent = () => {
     }, [slides.length]);
 
     return (
-        <div className="relative w-full md:h-[750px] h-96 overflow-hidden mt-[90px] bg-gray-100 rounded-md">
+        <div className="relative w-full md:h-[750px] h-96 overflow-hidden md:mt-5 mt-[90px] bg-gray-100 rounded-md">
             <div className="relative w-full h-full">
                 {slides.map((slide, index) => (
                     <div

@@ -1,16 +1,16 @@
-import React from 'react'
-import SliderComponent from '../../components/slider/SliderComponent'
-import ProductScreen from '../products/ProductScreen'
+import React from 'react';
+import SliderComponent from '../../components/slider/SliderComponent';
+import ProductScreen from '../products/ProductScreen';
+import CategoryComponent from '../../components/categories/CategoryComponent';
 
 const HomeScreen = () => {
   return (
-    <div>
-      <SliderComponent/>
-
-
-      <ProductScreen/>
+    <div className='container mx-auto'>
+      <CategoryComponent />
+      <SliderComponent />
+      <ProductScreen />
     </div>
-  )
-}
+  );
+};
 
-export default HomeScreen
+export default HomeScreen;
