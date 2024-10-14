@@ -11,8 +11,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout/>}>
           <Route index element={<HomeScreen />} />
-          <Route path="blogs" element={<LoginScreen />} />
-          <Route path="contact" element={<RegisterScreen />} />
+          <Route path="login" element={<LoginScreen />} />
+          <Route path="register" element={<RegisterScreen />} />
         </Route>
       </Routes>
     </BrowserRouter>
