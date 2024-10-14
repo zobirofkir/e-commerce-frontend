@@ -30,7 +30,7 @@ const Layout = () => {
       <div className='flex flex-1'>
 
         <button 
-          className='text-2xl p-2 focus:outline-none fixed top-[30px] right-4 z-20'
+          className='text-2xl p-2 focus:outline-none fixed top-[30px] right-4 z-50'
           onClick={toggleSidebar}
         >
           {isSidebarOpen ? closeIcon : openIcon}
