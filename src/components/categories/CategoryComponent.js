@@ -1,33 +1,26 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
 const CategoryComponent = () => {
-  const categories = [
-    { id: 'category1', name: 'Category 1' },
-    { id: 'category2', name: 'Category 2' },
-    { id: 'category3', name: 'Category 3' },
-    { id: 'category4', name: 'Category 4' },
-    { id: 'category5', name: 'Category 5' },
-    { id: 'category6', name: 'Category 6' },
-    { id: 'category7', name: 'Category 7' },
-    { id: 'category8', name: 'Category 8' },
-    { id: 'category9', name: 'Category 9' },
-    { id: 'category10', name: 'Category 10' },
-    { id: 'category11', name: 'Category 11' },
-    { id: 'category12', name: 'Category 12' },
-    { id: 'category13', name: 'Category 13' },
-    { id: 'category14', name: 'Category 14' },
-    { id: 'category15', name: 'Category 15' },
-    { id: 'category16', name: 'Category 16' },
-    { id: 'category17', name: 'Category 17' },
-    { id: 'category18', name: 'Category 18' },
-    { id: 'category19', name: 'Category 19' },
-    { id: 'category20', name: 'Category 20' },
-  ];
+  const [category, setCategory] = useState([]);
+
+  const getCategories = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_APP_URL}/api/categories`);
+      setCategory(response.data.data);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   return (
     <div className='bg-white text-black mt-20 hidden md:block rounded-md'>
       <div className='flex overflow-x-auto p-2'> 
-        {categories.map(category => (
+        {category.map(category => (
           <a
             key={category.id}
             href={`#${category.id}`}
