@@ -5,7 +5,7 @@ import NavLinkComponent from '../components/navlink/NavLinkComponent';
 import SidebareComponent from '../components/sidebare/SidebareComponent';
 
 const Layout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);

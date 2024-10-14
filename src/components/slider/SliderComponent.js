@@ -58,16 +58,16 @@ const SliderComponent = () => {
                     >
                         <img
                             src={slide.img}
-                            className="w-full h-full object-cover hover:opacity-80"
+                            className="w-full h-full object-cover"
                             alt={`Slide ${index + 1}`}
                         />
                         <div className="absolute inset-0 bg-black opacity-30" />
-                        <div className="absolute bottom-20 left-10 text-white ">
-                            <h2 className="text-3xl font-bold">{slide.title}</h2>
-                            <p className="mt-2">{slide.description}</p>
+                        <div className="absolute bottom-10 left-5 md:left-10 text-white p-5 rounded bg-black bg-opacity-50">
+                            <h2 className="text-xl md:text-3xl font-bold">{slide.title}</h2>
+                            <p className="mt-2 text-sm md:text-base">{slide.description}</p>
                             <a 
                                 href={slide.link}
-                                className="inline-block mt-4 bg-black text-white py-2 px-4 rounded hover:bg-gray-900 rounded transition duration-200"
+                                className="inline-block mt-4 bg-black text-white py-2 px-4 rounded hover:bg-gray-900 transition duration-200"
                             >
                                 {slide.buttonLabel}
                             </a>
@@ -76,7 +76,7 @@ const SliderComponent = () => {
                 ))}
             </div>
 
-            <div className="absolute flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse ">
+            <div className="absolute flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
                 {slides.map((_, index) => (
                     <button
                         key={index}
@@ -91,10 +91,10 @@ const SliderComponent = () => {
 
             <button
                 type="button"
-                className="absolute top-0 left-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none "
+                className="absolute top-1/2 left-0 flex items-center justify-center h-full px-4 transform -translate-y-1/2 cursor-pointer group focus:outline-none"
                 onClick={() => setCurrentIndex((currentIndex - 1 + slides.length) % slides.length)}
             >
-                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50 focus:ring-4 focus:ring-white">
                     <svg className="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 1 1 5l4 4" />
                     </svg>
@@ -103,10 +103,10 @@ const SliderComponent = () => {
             </button>
             <button
                 type="button"
-                className="absolute top-0 right-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none "
+                className="absolute top-1/2 right-0 flex items-center justify-center h-full px-4 transform -translate-y-1/2 cursor-pointer group focus:outline-none"
                 onClick={() => setCurrentIndex((currentIndex + 1) % slides.length)}
             >
-                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50 focus:ring-4 focus:ring-white">
                     <svg className="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
                     </svg>
