@@ -3,6 +3,7 @@ import React from 'react';
 const SidebareComponent = () => {
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('name');
     window.location.href = '/login';
   };
 

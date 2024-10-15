@@ -18,6 +18,7 @@ const LoginScreen = () => {
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_APP_URL}/api/users/login`, data);
       if (response.status === 200) {
         localStorage.setItem('accessToken', response.data.data.accessToken);
+        localStorage.setItem('name', response.data.data.name);
         window.location.href = '/';
       }
     } catch (err) {
