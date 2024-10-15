@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductInfoScreen = () => {
   const location = useLocation();
@@ -9,9 +11,7 @@ const ProductInfoScreen = () => {
 
   const [quantity, setQuantity] = useState(1);
   const [shippingAddress, setShippingAddress] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState('cash_on_delivery');
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
+  const [paymentMethod] = useState('cash_on_delivery');
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
@@ -33,7 +33,7 @@ const ProductInfoScreen = () => {
 
     try {
       if (!shippingAddress) {
-        setError('Please provide a valid shipping address.');
+        toast.error('Please enter a shipping address.');
         return;
       }
 
@@ -48,22 +48,21 @@ const ProductInfoScreen = () => {
         payment_method: paymentMethod,
       };
 
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_APP_URL}/api/orders`, orderData, {
+      await axios.post(`${process.env.REACT_APP_BACKEND_APP_URL}/api/orders`, orderData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      setMessage('Order created successfully!');
-      setError('');
+      toast.success('Order created successfully.');
     } catch (error) {
-      setError('Failed to create order. Please try again.');
-      setMessage('');
+      console.error('Error creating order:', error);
     }
   };
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
+      <ToastContainer />
       <div className="max-w-7xl mx-auto p-8 bg-white rounded-lg shadow-lg transition-transform transform hover:scale-105">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="flex justify-center">
@@ -118,9 +117,6 @@ const ProductInfoScreen = () => {
               >
                 Add to Cart
               </button>
-
-              {message && <p className="text-green-600 mt-4">{message}</p>}
-              {error && <p className="text-red-600 mt-4">{error}</p>}
             </div>
           </div>
         </div>

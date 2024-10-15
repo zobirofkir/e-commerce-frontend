@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ const CategoryScreen = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const getProducts = async () => {
+  const getProducts = useCallback(async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_APP_URL}/api/categories/${id}/products`);
       setProducts(response.data.data);
@@ -16,11 +16,12 @@ const CategoryScreen = () => {
       console.error('Error fetching products:', error);
       setError('Failed to fetch products.');
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     getProducts();
-  }, [id]);
+  }, [getProducts]);
+
 
   const handleShop = (product) => {
     navigate(`/products/${product.slug}`, { state: { product } });

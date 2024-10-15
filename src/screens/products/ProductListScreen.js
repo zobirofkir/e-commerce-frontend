@@ -1,15 +1,14 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const ProductListScreen = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
-  const { id } = useParams(); // Get category ID from URL
-  const navigate = useNavigate(); // Initialize useNavigate for routing
+  const { id } = useParams(); 
+  const navigate = useNavigate();
 
-  // Fetch products based on category ID
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_APP_URL}/api/categories/${id}/products`);
       setProducts(response.data.data);
@@ -17,12 +16,11 @@ const ProductListScreen = () => {
       console.error('Error fetching products:', error);
       setError('Failed to fetch products.');
     }
-  };
+  }, [id]);
 
-  // useEffect to fetch data when the component mounts
   useEffect(() => {
     fetchProducts();
-  }, [id]);
+  }, [fetchProducts]);
 
   // Navigate to product detail screen
   const handleBuyNow = (product) => {

@@ -1,14 +1,12 @@
 // ProductScreen.js
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ProductScreen = ({ searchTerm }) => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [error, setError] = useState(null);
-  const { id } = useParams();
 
   const fetchProducts = async () => {
     try {
@@ -17,7 +15,6 @@ const ProductScreen = ({ searchTerm }) => {
       setFilteredProducts(response.data.data); // Initialize filtered products
     } catch (error) {
       console.error('Error fetching products:', error);
-      setError('Failed to fetch products.');
     }
   };
 
