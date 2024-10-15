@@ -53,7 +53,7 @@ const ResetScreen = () => {
           </div>
           <button
             type="submit"
-            className="w-full py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-500 transition duration-200"
+            className="w-full py-2 bg-gray-600 text-white font-semibold rounded-md hover:bg-gray-500 transition duration-200"
             disabled={loading}
           >
             {loading ? 'Please Wait...' : 'Reset'}

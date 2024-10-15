@@ -64,17 +64,17 @@ const LoginScreen = () => {
           </div>
           <button
             type="submit"
-            className="w-full py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-500 transition duration-200"
+            className="w-full py-2 bg-gray-600 text-white font-semibold rounded-md hover:bg-gray-500 transition duration-200"
           >
             Login
           </button>
           <p className="mt-4 text-sm text-center">
             Don't have an account? 
-            <a href="/register" className="text-blue-600 hover:underline"> Sign Up</a>
+            <a href="/register" className="text-gray-600 hover:underline"> Sign Up</a>
           </p>
           <p className="mt-4 text-sm text-center">
             Forget your password? 
-            <a href="/reset" className="text-blue-600 hover:underline"> Reset</a>
+            <a href="/reset" className="text-gray-600 hover:underline"> Reset</a>
           </p>
         </form>
       </div>

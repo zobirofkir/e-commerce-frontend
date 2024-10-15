@@ -89,13 +89,13 @@ const RegisterScreen = () => {
           </div>
           <button
             type="submit"
-            className="w-full py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-500 transition duration-200"
+            className="w-full py-2 bg-gray-600 text-white font-semibold rounded-md hover:bg-gray-500 transition duration-200"
           >
             Register
           </button>
           <p className="mt-4 text-md text-center">
             Already have an account? 
-            <a href="/login" className="text-blue-600 hover:underline"> Login</a>
+            <a href="/login" className="text-gray-600 hover:underline"> Login</a>
           </p>
         </form>
       </div>
