@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import FooterComponent from '../components/footer/FooterComponent';
 import NavLinkComponent from '../components/navlink/NavLinkComponent';
 import SidebareComponent from '../components/sidebare/SidebareComponent';
+import ProductSearchComponent from '../components/search/ProductSearchComponent';
 
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -23,12 +24,15 @@ const Layout = () => {
     </svg>
   );
 
+  const handleSearch = (searchTerm) => {
+    console.log('Searching for:', searchTerm);
+  };
+
   return (
     <div className='layout min-h-screen flex flex-col'>
       <NavLinkComponent />
 
       <div className='flex flex-1'>
-
         <button 
           className='text-2xl p-2 focus:outline-none fixed top-[20px] right-4 z-50'
           onClick={toggleSidebar}
@@ -44,8 +48,9 @@ const Layout = () => {
           <SidebareComponent />
         </div>
 
-        {/* Main Content */}
         <main className='flex-1 p-4 bg-gray-100'>
+          <ProductSearchComponent onSearch={handleSearch} />
+          
           <Outlet />
         </main>
       </div>

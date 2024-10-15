@@ -24,7 +24,7 @@ const CategoryComponent = () => {
   }
 
   return (
-    <div className='bg-white text-black mt-20 hidden md:block rounded-md'>
+    <div className='bg-white text-black mt-5 hidden md:block rounded-md'>
       <div className='flex overflow-x-auto p-2'> 
         {category.map((category) => (
           <button
