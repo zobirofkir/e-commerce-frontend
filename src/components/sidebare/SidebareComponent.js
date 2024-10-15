@@ -76,7 +76,7 @@ const SidebareComponent = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h18v18H3V3z" />
               </svg>
             </div>
-            <a href='/registerRegister'>
+            <a href='/register'>
               Register
             </a>
           </div>
