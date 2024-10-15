@@ -11,6 +11,7 @@ import CategoryScreen from "./screens/categories/CategoryScreen";
 import CategoryListScreen from "./screens/categories/CategoryListScreen";
 import ProductListScreen from "./screens/products/ProductListScreen";
 import SearchResultsScreen from "./screens/products/SearchResultsScreen";
+import OfferScreen from "./screens/offers/OfferScreen";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/products" element={<ProductScreen />} />
           <Route path="/categories/:id/products" element={<ProductListScreen />} />
           <Route path="/products/:slug" element={<ProductInfoScreen />} />
+          <Route path="/offers" element={<OfferScreen />} />
           <Route path="/search" element={<SearchResultsScreen />} />
         </Route>
       </Routes>

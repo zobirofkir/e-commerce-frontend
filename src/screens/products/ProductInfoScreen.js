@@ -115,7 +115,7 @@ const ProductInfoScreen = () => {
                 className="bg-gray-900 text-white py-3 px-6 rounded-lg shadow-md hover:bg-gray-700 transition-colors duration-300 transform hover:scale-105"
                 onClick={handleAddToCart}
               >
-                Add to Cart
+                Buy Now
               </button>
             </div>
           </div>
