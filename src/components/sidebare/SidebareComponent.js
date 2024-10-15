@@ -1,6 +1,13 @@
 import React from 'react';
 
 const SidebareComponent = () => {
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    window.location.href = '/login';
+  };
+
+  const token = localStorage.getItem('accessToken');
+
   return (
     <div className="relative flex h-screen w-full max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5">
       <div className="flex justify-center mt-10">
@@ -9,78 +16,89 @@ const SidebareComponent = () => {
         </h5>
       </div>
       <nav className="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
-      <div
-        role="button"
-        className="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
-      >
-        <div className="grid mr-4 place-items-center">
-          {/* Product Icon */}
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" class="w-5 h-5">
-            <polygon points="22 7 12 2 2 7 2 17 12 22 22 17" stroke="currentColor" strokeLinejoin="round" />
-            <line stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" x1="2" x2="12" y1="7" y2="12" />
-            <line stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" x1="12" x2="12" y1="22" y2="12" />
-            <line stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" x1="22" x2="12" y1="7" y2="12" />
-            <line stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" x1="17" x2="7" y1="4.5" y2="9.5" />
-          </svg>
+        <div
+          role="button"
+          className="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+        >
+          <div className="grid mr-4 place-items-center">
+            {/* Product Icon */}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-5 h-5">
+              <polygon points="22 7 12 2 2 7 2 17 12 22 22 17" stroke="currentColor" strokeLinejoin="round" />
+              <line stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" x1="2" x2="12" y1="7" y2="12" />
+              <line stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" x1="12" x2="12" y1="22" y2="12" />
+              <line stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" x1="22" x2="12" y1="7" y2="12" />
+              <line stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" x1="17" x2="7" y1="4.5" y2="9.5" />
+            </svg>
+          </div>
+          <a href='/products'>Products</a>
         </div>
-        <a href='/products'>
-          Products
-        </a>
-      </div>
-      <div
-        role="button"
-        className="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
-      >
-      <div className="grid mr-4 place-items-center">
-        {/* Categories Icon */}
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" class="w-5 h-5">
-          <rect x="2" y="2" width="8.56" height="8.56" stroke="currentColor" strokeLinejoin="round"></rect>
-          <rect x="13.44" y="2" width="8.56" height="8.56" stroke="currentColor" strokeLinejoin="round"></rect>
-          <rect x="2" y="13.44" width="8.56" height="8.56" stroke="currentColor" strokeLinejoin="round"></rect>
-          <rect x="13.44" y="13.44" width="8.56" height="8.56" stroke="currentColor" strokeLinejoin="round"></rect>
-        </svg>
-      </div>
-      <a href='/categories'>
-        Categories
-      </a>
-    </div>
-
+        <div
+          role="button"
+          className="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+        >
+          <div className="grid mr-4 place-items-center">
+            {/* Categories Icon */}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" className="w-5 h-5">
+              <rect x="2" y="2" width="8.56" height="8.56" stroke="currentColor" strokeLinejoin="round"></rect>
+              <rect x="13.44" y="2" width="8.56" height="8.56" stroke="currentColor" strokeLinejoin="round"></rect>
+              <rect x="2" y="13.44" width="8.56" height="8.56" stroke="currentColor" strokeLinejoin="round"></rect>
+              <rect x="13.44" y="13.44" width="8.56" height="8.56" stroke="currentColor" strokeLinejoin="round"></rect>
+            </svg>
+          </div>
+          <a href='/categories'>Categories</a>
+        </div>
       </nav>
 
-      {/* Login and Register Buttons Section */}
+      {/* Conditional Rendering for Login/Register or Logout */}
       <div className="mt-auto mb-5 md:mb-20">
-        <div className="relative block w-full">
-          <div
-            role="button"
-            className="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
-          >
-            <div className="grid mr-4 place-items-center">
-              {/* Login Icon */}
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="3" stroke="currentColor" aria-hidden="true" className="w-5 h-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12H3m9 9L3 12l9-9" />
-              </svg>
+        {token ? (
+          <div className="relative block w-full">
+            <div
+              role="button"
+              className="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+              onClick={handleLogout}
+            >
+              <div className="grid mr-4 place-items-center">
+                {/* Logout Icon */}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="3" stroke="currentColor" aria-hidden="true" className="w-5 h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 12H3m9 9L3 12l9-9" />
+                </svg>
+              </div>
+              <span>Logout</span>
             </div>
-            <a href='/login'>
-              Login
-            </a>
           </div>
-        </div>
-        <div className="relative block w-full mt-2">
-          <div
-            role="button"
-            className="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
-          >
-            <div className="grid mr-4 place-items-center">
-              {/* Register Icon */}
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="3" stroke="currentColor" aria-hidden="true" className="w-5 h-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h18v18H3V3z" />
-              </svg>
+        ) : (
+          <>
+            <div className="relative block w-full">
+              <div
+                role="button"
+                className="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+              >
+                <div className="grid mr-4 place-items-center">
+                  {/* Login Icon */}
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="3" stroke="currentColor" aria-hidden="true" className="w-5 h-5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 12H3m9 9L3 12l9-9" />
+                  </svg>
+                </div>
+                <a href='/login'>Login</a>
+              </div>
             </div>
-            <a href='/register'>
-              Register
-            </a>
-          </div>
-        </div>
+            <div className="relative block w-full mt-2">
+              <div
+                role="button"
+                className="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+              >
+                <div className="grid mr-4 place-items-center">
+                  {/* Register Icon */}
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="3" stroke="currentColor" aria-hidden="true" className="w-5 h-5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h18v18H3V3z" />
+                  </svg>
+                </div>
+                <a href='/register'>Register</a>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
