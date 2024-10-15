@@ -1,41 +1,26 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const ProductScreen = () => {
   const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
+  const { id } = useParams();
 
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_APP_URL}/api/products`);
+      setProducts(response.data.data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      setError('Failed to fetch products.');
+    }
+  };
 
-  const products = [
-    {
-      slug: "slug product 1",
-      title: 'Product 1',
-      description: 'This is a short description of product This is a short description of product This is a short description of product This is a short description of product This is a short description of productThis is a short description of productThis is a short description of productThis is a short description of product 1.',
-      price: '$29.99',
-      image: 'https://via.placeholder.com/150',
-    },
-    {
-      slug: "slug product 2",
-      title: 'Product 2',
-      description: 'This is a short description of product This is a short description of product This is a short description of product This is a short description of product This is a short description of productThis is a short description of productThis is a short description of productThis is a short description of product 2.',
-      price: '$39.99',
-      image: 'https://via.placeholder.com/150',
-    },
-    {
-      slug: "slug product 3",
-      title: 'Product 3',
-      description: 'This is a short description of product This is a short description of product This is a short description of product This is a short description of product This is a short description of productThis is a short description of productThis is a short description of productThis is a short description of product 3.',
-      price: '$49.99',
-      image: 'https://via.placeholder.com/150',
-    },
-    {
-      slug: "slug product 4",
-      title: 'Product 4',
-      description: 'This is a short description of product This is a short description of product This is a short description of product This is a short description of product This is a short description of productThis is a short description of productThis is a short description of productThis is a short description of product 4.',
-      price: '$59.99',
-      image: 'https://via.placeholder.com/150',
-    },
-  ];
-
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   const handleBuyNow = (product) => {
 
