@@ -19,6 +19,7 @@ const LoginScreen = () => {
       if (response.status === 200) {
         localStorage.setItem('accessToken', response.data.data.accessToken);
         localStorage.setItem('name', response.data.data.name);
+        localStorage.setItem('email', response.data.data.email);
         window.location.href = '/';
       }
     } catch (err) {

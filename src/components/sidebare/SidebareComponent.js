@@ -4,6 +4,7 @@ const SidebareComponent = () => {
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('name');
+    localStorage.removeItem('email');
     window.location.href = '/login';
   };
 
