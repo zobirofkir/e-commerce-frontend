@@ -8,6 +8,8 @@ import ResetScreen from "./screens/reset/ResetScreen";
 import ProductInfoScreen from "./screens/products/ProductInfoScreen";
 import ProductScreen from "./screens/products/ProductScreen";
 import CategoryScreen from "./screens/categories/CategoryScreen";
+import CategoryListScreen from "./screens/categories/CategoryListScreen";
+import ProductListScreen from "./screens/products/ProductListScreen";
 
 function App() {
   return (
@@ -18,8 +20,10 @@ function App() {
           <Route path="login" element={<LoginScreen />} />
           <Route path="register" element={<RegisterScreen />} />
           <Route path="reset" element={<ResetScreen />} />
+          <Route path="/categories" element={<CategoryListScreen />} />
           <Route path="/categories/:id" element={<CategoryScreen />} />
           <Route path="/products" element={<ProductScreen />} />
+          <Route path="/categories/:id/products" element={<ProductListScreen />} />
           <Route path="/products/:slug" element={<ProductInfoScreen />} />
         </Route>
       </Routes>

@@ -34,7 +34,7 @@ const ProductInfoScreen = () => {
 
                 <div className="flex items-center mb-6">
                     <span className="text-3xl font-bold text-gray-900">
-                    {product.price}
+                    {product.price} MAD
                     </span>
                 </div>
 

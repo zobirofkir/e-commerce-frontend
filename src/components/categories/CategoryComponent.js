@@ -20,7 +20,7 @@ const CategoryComponent = () => {
   }, []);
 
   const openCategory = (id) => {
-    navigate(`/categories/${id}`);  // Navigate to CategoryScreen with the category id
+    navigate(`/categories/${id}`); 
   }
 
   return (
@@ -30,7 +30,7 @@ const CategoryComponent = () => {
           <button
             key={category.id}
             className='px-4 py-2 rounded-md hover:bg-gray-800 hover:text-white whitespace-nowrap'
-            onClick={() => openCategory(category.id)}  // Call openCategory with the category ID
+            onClick={() => openCategory(category.id)}
           >
             {category.name}
           </button>

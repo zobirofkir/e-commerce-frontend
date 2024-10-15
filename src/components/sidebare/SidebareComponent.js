@@ -27,6 +27,24 @@ const SidebareComponent = () => {
           Products
         </a>
       </div>
+      <div
+        role="button"
+        className="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+      >
+      <div className="grid mr-4 place-items-center">
+        {/* Categories Icon */}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" class="w-5 h-5">
+          <rect x="2" y="2" width="8.56" height="8.56" stroke="currentColor" strokeLinejoin="round"></rect>
+          <rect x="13.44" y="2" width="8.56" height="8.56" stroke="currentColor" strokeLinejoin="round"></rect>
+          <rect x="2" y="13.44" width="8.56" height="8.56" stroke="currentColor" strokeLinejoin="round"></rect>
+          <rect x="13.44" y="13.44" width="8.56" height="8.56" stroke="currentColor" strokeLinejoin="round"></rect>
+        </svg>
+      </div>
+      <a href='/categories'>
+        Categories
+      </a>
+    </div>
+
       </nav>
 
       {/* Login and Register Buttons Section */}
