@@ -1,11 +1,26 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const ProductSearchComponent = ({ onSearch }) => {
+const ProductSearchComponent = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
-    onSearch(event.target.value); // Call the onSearch prop to update the search term in the parent
+  };
+
+  const handleSearchClick = async () => {
+    if (searchTerm.length > 2) {
+      try {
+
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_APP_URL}/api/products/search/${encodeURIComponent(searchTerm)}`);
+        
+        navigate('/search', { state: { results: response.data.data } });
+      } catch (error) {
+        console.error('Error fetching search results:', error);
+      }
+    }
   };
 
   return (
@@ -20,11 +35,12 @@ const ProductSearchComponent = ({ onSearch }) => {
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500"
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 cursor-pointer"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
           strokeWidth={2}
+          onClick={handleSearchClick} 
         >
           <path
             strokeLinecap="round"
