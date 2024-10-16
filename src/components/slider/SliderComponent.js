@@ -1,44 +1,18 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SliderComponent = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const slides = [
-        {
-            img: "https://static.vecteezy.com/system/resources/previews/022/653/879/non_2x/fantasy-island-with-waterfalls-3d-illustration-elements-of-this-image-furnished-by-nasa-generative-ai-free-photo.jpg",
-            title: "Fantasy Island",
-            description: "Experience the beauty of this serene landscape.",
-            buttonLabel: "Shop Now",
-            link: "#"
-        },
-        {
-            img: "https://cdn.futura-sciences.com/sources/lion-hologram-4399941_1920.jpg",
-            title: "Lion Hologram",
-            description: "Bring the wild into your space with this stunning art piece.",
-            buttonLabel: "Discover More",
-            link: "#"
-        },
-        {
-            img: "https://cdn.futura-sciences.com/sources/images/reflets-yeux-recreer-3D.jpg",
-            title: "3D Eye Reflections",
-            description: "A mesmerizing 3D reflection that captures attention.",
-            buttonLabel: "Explore Art",
-            link: "#"
-        },
-        {
-            img: "https://resize.prod.femina.ladmedia.fr/rblr/652,438/img/var/2023-06/irisrefletsanteiridologie.jpg",
-            title: "Iris Reflection",
-            description: "An artistic take on eye reflections for your home.",
-            buttonLabel: "View Collection",
-            link: "#"
-        },
-        {
-            img: "https://cdn.futura-sciences.com/sources/images/reflets-yeux-recreer-3D.jpg",
-            title: "3D Eye Recreation",
-            description: "Explore the world of 3D art with this unique piece.",
-            buttonLabel: "Shop Art",
-            link: "#"
-        },
-    ];
+    const [slides, setSlides] = useState([]);
+
+    const fetchSlides = async () => {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_APP_URL}/api/products`);
+        setSlides(response.data.data);
+    }
+    useEffect(() => {
+        fetchSlides();
+    }, [])
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -49,7 +23,7 @@ const SliderComponent = () => {
     }, [slides.length]);
 
     return (
-        <div className="relative w-full md:h-[750px] h-96 overflow-hidden md:mt-5 mt-[90px] bg-gray-100 rounded-md">
+        <div className="relative w-full md:h-[750px] h-96 overflow-hidden md:mt-5 mt-[15px] bg-gray-100 rounded-md">
             <div className="relative w-full h-full">
                 {slides.map((slide, index) => (
                     <div
@@ -57,20 +31,14 @@ const SliderComponent = () => {
                         key={index}
                     >
                         <img
-                            src={slide.img}
+                            src={slide.images?.[0] || slide.image}
                             className="w-full md:h-full h-full object-cover rounded-md object-center"
                             alt={`Slide ${index + 1}`}
                         />
                         <div className="absolute inset-0 bg-black opacity-30" />
                         <div className="absolute bottom-10 left-5 md:left-10 text-white p-5 rounded bg-black bg-opacity-50">
                             <h2 className="text-xl md:text-3xl font-bold">{slide.title}</h2>
-                            <p className="mt-2 text-sm md:text-base">{slide.description}</p>
-                            <a 
-                                href={slide.link}
-                                className="inline-block mt-4 bg-black text-white py-2 px-4 rounded hover:bg-gray-900 transition duration-200"
-                            >
-                                {slide.buttonLabel}
-                            </a>
+                            <p className="mt-2 text-sm md:text-base">{slide.description.substring(0, 100)}</p>
                         </div>
                     </div>
                 ))}

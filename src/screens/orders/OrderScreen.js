@@ -205,16 +205,16 @@ const OrderScreen = () => {
 
           {/* Complete Order Button */}
           {order && (
-            <div className="mt-6 text-center">
+            <div className="mt-6 flex text-center">
               <button 
-                className={`bg-green-500 text-white py-2 px-6 rounded hover:bg-green-600 transition duration-200 ${emailSent ? 'opacity-50 cursor-not-allowed' : ''}`}
+                className={`bg-green-500 text-white py-2 px-6 rounded hover:bg-green-600 transition duration-200 whitespace-nowrap ${emailSent ? 'opacity-50 cursor-not-allowed' : ''}`}
                 onClick={handleFinalCommand}
                 disabled={emailSent} 
               >
                 {emailSent ? 'Email Sent' : 'Complete Order'}
               </button>
               <button 
-                className="bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 transition duration-200 ml-4"
+                className="bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 whitespace-nowrap transition duration-200 ml-4"
                 onClick={downloadPDF}
               >
                 Download PDF
