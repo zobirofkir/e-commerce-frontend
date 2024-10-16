@@ -180,14 +180,14 @@ const OrderScreen = () => {
           <h2 className="text-xl font-semibold mb-4">Product Info:</h2>
           <ul className="space-y-4">
             {order.items.map((item, index) => {
-                const productTitle = item.product_name || 'No product name available'; 
+                const productTitle = item.title || 'No product name available'; 
                 const productDescription = item.description || 'No description available'; 
 
                 return (
                     <li key={index} className="border-b pb-4">
                       <div className="flex flex-col md:flex-row items-start md:items-center">
                         <img 
-                          src={`${process.env.REACT_APP_BACKEND_APP_URL}/storage/${item.image}`} 
+                          src={`${item.images?.[0] || item.image}`} 
                           alt={productTitle} 
                           className="w-full md:w-1/4 h-auto object-cover mb-4 md:mb-0 md:mr-4" 
                         />

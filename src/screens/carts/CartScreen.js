@@ -13,7 +13,7 @@ const CartScreen = () => {
       try {
         const accessToken = localStorage.getItem('accessToken');
         if (!accessToken) {
-          setError('No access token found');
+          setError('Please login to view your orders.');
           setLoading(false);
           return;
         }
@@ -45,7 +45,7 @@ const CartScreen = () => {
       try {
         const accessToken = localStorage.getItem('accessToken');
         if (!accessToken) {
-          setError('No access token found');
+          setError('Please login to view your orders.');
           return;
         }
 

@@ -5,6 +5,9 @@ const SidebareComponent = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('name');
     localStorage.removeItem('email');
+    localStorage.removeItem('phone');
+    localStorage.removeItem('quantity');
+    localStorage.removeItem('shippingAddress');
     window.location.href = '/login';
   };
 
