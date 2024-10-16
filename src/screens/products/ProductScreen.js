@@ -1,4 +1,3 @@
-// ProductScreen.js
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +11,7 @@ const ProductScreen = ({ searchTerm }) => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_APP_URL}/api/products`);
       setProducts(response.data.data);
-      setFilteredProducts(response.data.data); // Initialize filtered products
+      setFilteredProducts(response.data.data); 
     } catch (error) {
       console.error('Error fetching products:', error);
     }
@@ -22,7 +21,6 @@ const ProductScreen = ({ searchTerm }) => {
     fetchProducts();
   }, []);
 
-  // Effect to filter products based on the search term
   useEffect(() => {
     if (searchTerm) {
       const filtered = products.filter(product =>
@@ -30,7 +28,7 @@ const ProductScreen = ({ searchTerm }) => {
       );
       setFilteredProducts(filtered);
     } else {
-      setFilteredProducts(products); // Reset to original list if search term is empty
+      setFilteredProducts(products);
     }
   }, [searchTerm, products]);
 
@@ -47,7 +45,7 @@ const ProductScreen = ({ searchTerm }) => {
             <div className="p-4">
               <h2 className="text-xl font-semibold mb-2">{product.title}</h2>
               <p className="text-gray-600 mb-4">{product.description.substring(0, 50) + '...'}</p>
-              <div className="text-lg font-bold text-blue-gray-900 mb-4">{product.price}</div>
+              <div className="text-lg font-bold text-blue-gray-900 mb-4">MAD {product.price}</div>
 
               <button
                 onClick={() => handleBuyNow(product)}

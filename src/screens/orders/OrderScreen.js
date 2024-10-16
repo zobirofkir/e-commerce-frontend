@@ -7,8 +7,6 @@ const OrderScreen = () => {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const name = localStorage.getItem('name');
-  const email = localStorage.getItem('email');
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -19,7 +17,8 @@ const OrderScreen = () => {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        setOrder(response.data);
+        setOrder(response.data.data);
+        console.log(response.data.data.items);
       } catch (err) {
         setError('Failed to fetch order details');
       } finally {
@@ -49,10 +48,11 @@ const OrderScreen = () => {
         <div className="p-6">
           <h1 className="text-2xl font-semibold mb-4 text-center">Order Details</h1>
           <OrderDetail label="Order ID" value={order.id} />
-          <OrderDetail label="Name" value={name} />
-          <OrderDetail label="Email" value={email} />
+          <OrderDetail label="Name" value={order.name} />
+          <OrderDetail label="Email" value={order.email} />
+          <OrderDetail label="Phone" value={order.phone} />
           <OrderDetail label="Status" value={order.order_status} />
-          <OrderDetail label="Total Price" value={`$${order.total_price}`} />
+          <OrderDetail label="Total Price" value={`MAD ${order.total_price}`} />
           <OrderDetail label="Payment Method" value={order.payment_method} />
           <OrderDetail label="Shipping Address" value={order.shiping_address} />
           <OrderDetail label="Order Date" value={new Date(order.created_at).toLocaleString()} />
@@ -67,29 +67,31 @@ const OrderScreen = () => {
           {/* Product Info Section */}
           <h2 className="text-xl font-semibold mb-4">Product Info:</h2>
           <ul className="space-y-4">
-            {order.items.map((item) => {
-              const imageUrl = `${process.env.REACT_APP_BACKEND_APP_URL}/storage/${item.product.image}`;
+          {order.items.map((item, index) => {
+                // Since item.product is undefined, we'll use item.product_name instead
+                const productTitle = item.product_name || 'No product name available'; // Handle null case
+                const productDescription = item.description || 'No description available'; // Optional
 
-              return (
-                <li key={item.id} className="border-b pb-4">
-                  <div className="flex flex-col md:flex-row items-start md:items-center">
-                    <img 
-                      src={imageUrl} 
-                      alt={item.product.title} 
-                      className="w-full md:w-1/4 h-auto object-cover mb-4 md:mb-0 md:mr-4" 
-                    />
-                    <div>
-                      <h3 className="text-lg font-semibold"><b>Product Name:</b> {item.product.title}</h3>
-                      <p className="text-gray-600"><b>Quantity:</b> {item.quantity}</p>
-                      <p className="text-gray-600"><b>Price Of One Product:</b> ${item.price}</p>
-                      <p className="text-gray-600"><b>Product Description:</b> {item.product.description}</p>
+                return (
+                    <li key={index} className="border-b pb-4">
+                    <div className="flex flex-col md:flex-row items-start md:items-center">
+                        {/* Placeholder image if item.product.image doesn't exist */}
+                        <img 
+                        src={`${process.env.REACT_APP_BACKEND_APP_URL}/storage/${item.image}`} 
+                        alt={productTitle} 
+                        className="w-full md:w-1/4 h-auto object-cover mb-4 md:mb-0 md:mr-4" 
+                        />
+                        <div>
+                        <h3 className="text-lg font-semibold"><b>Product Name:</b> {productTitle}</h3>
+                        <p className="text-gray-600"><b>Quantity:</b> {item.quantity}</p>
+                        <p className="text-gray-600"><b>Price Of One Product:</b> MAD {item.price}</p>
+                        <p className="text-gray-600"><b>Product Description:</b> {productDescription}</p>
+                        </div>
                     </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-
+                    </li>
+                );
+                })}
+            </ul>
           {/* Final Command Button */}
           <div className="mt-6 text-center">
             <button className="bg-green-500 text-white py-2 px-6 rounded hover:bg-green-600 transition duration-200">

@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ModalComponent from '../../components/modal/ModalComponent';
 
 const ProductInfoScreen = () => {
   const location = useLocation();
@@ -11,7 +12,11 @@ const ProductInfoScreen = () => {
 
   const [quantity, setQuantity] = useState(1);
   const [shippingAddress, setShippingAddress] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [paymentMethod] = useState('cash_on_delivery');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
@@ -46,6 +51,9 @@ const ProductInfoScreen = () => {
         ],
         shiping_address: shippingAddress,
         payment_method: paymentMethod,
+        name: name,
+        email: email,
+        phone: phone,
       };
 
       await axios.post(`${process.env.REACT_APP_BACKEND_APP_URL}/api/orders`, orderData, {
@@ -55,6 +63,7 @@ const ProductInfoScreen = () => {
       });
 
       toast.success('Order created successfully.');
+      setIsModalOpen(false); // Close the modal after submission
     } catch (error) {
       console.error('Error creating order:', error);
     }
@@ -81,46 +90,31 @@ const ProductInfoScreen = () => {
               <span className="text-3xl font-bold text-gray-900">{product.price} MAD</span>
             </div>
 
-            <div className="mt-8">
-              <div className="mb-6">
-                <label htmlFor="quantity" className="block mb-2 text-sm font-medium text-gray-900">
-                  Quantity
-                </label>
-                <input
-                  type="number"
-                  id="quantity"
-                  name="quantity"
-                  min="1"
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
-                  className="border-gray-300 border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200 w-full"
-                />
-              </div>
-
-              <div className="mb-6">
-                <label htmlFor="shiping_address" className="block mb-2 text-sm font-medium text-gray-900">
-                  Shipping Address
-                </label>
-                <textarea
-                  id="shiping_address"
-                  name="shiping_address"
-                  rows="4"
-                  value={shippingAddress}
-                  onChange={(e) => setShippingAddress(e.target.value)}
-                  className="border-gray-300 border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200 w-full"
-                />
-              </div>
-
-              <button
-                className="bg-gray-900 text-white py-3 px-6 rounded-lg shadow-md hover:bg-gray-700 transition-colors duration-300 transform hover:scale-105"
-                onClick={handleAddToCart}
-              >
-                Buy Now
-              </button>
-            </div>
+            <button
+              className="bg-gray-900 text-white py-3 px-6 rounded-lg shadow-md hover:bg-gray-700 transition-colors duration-300 transform hover:scale-105"
+              onClick={() => setIsModalOpen(true)} // Open modal on click
+            >
+              Buy Now
+            </button>
           </div>
         </div>
       </div>
+
+      <ModalComponent
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleAddToCart}
+        quantity={quantity}
+        setQuantity={setQuantity}
+        name={name}
+        setName={setName}
+        email={email}
+        setEmail={setEmail}
+        phone={phone}
+        setPhone={setPhone}
+        shippingAddress={shippingAddress}
+        setShippingAddress={setShippingAddress}
+      />
     </div>
   );
 };
