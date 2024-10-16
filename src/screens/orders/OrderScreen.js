@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import jsPDF from 'jspdf';
 
 const OrderScreen = () => {
   const { id } = useParams();
@@ -20,6 +21,7 @@ const OrderScreen = () => {
           },
         });
         setOrder(response.data.data);
+        console.log(response.data.data);
         setEmailSent(false);
         console.log(response.data.data.items);
       } catch (err) {
@@ -50,6 +52,100 @@ const OrderScreen = () => {
     }
   };
 
+  // Function to generate PDF
+  const downloadPDF = () => {
+
+
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.setFont('Helvetica', 'bold');
+    const text = 'Order Details';
+    const textWidth = doc.getTextWidth(text);
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const x = (pageWidth - textWidth) / 2; 
+    
+    doc.setTextColor(255, 0, 0);
+    
+    doc.text(text, x, 22);
+    doc.setTextColor(0, 0, 0); 
+    
+
+    
+    doc.setFontSize(12);
+
+    
+
+    const details = [
+      { label: 'Name', value: order.name },
+      { label: 'Email', value: order.email },
+      { label: 'Phone', value: order.phone },
+      { label: 'Total Price', value: `MAD ${order.total_price}` },
+      { label: 'Shipping Address', value: order.shipping_address },
+      { label: 'Order Date', value: new Date(order.created_at).toLocaleString() },
+    ];
+    
+    let y = 30;
+    details.forEach((detail) => {
+      doc.setFont('Helvetica', 'normal');
+      doc.setTextColor(0, 128, 0); 
+      
+      doc.text(`${detail.label}:`, 14, y);
+      
+      doc.setTextColor(0, 0, 0);
+      doc.text(String(detail.value), 70, y);
+      doc.setFont('Helvetica', 'bold');
+      
+      y += 10;
+    });
+    
+
+    const productText = 'Product Info';
+    const productTextWidth = doc.getTextWidth(productText);
+    const productPageWidth = doc.internal.pageSize.getWidth();
+    const productX = (productPageWidth - productTextWidth) / 2;
+    
+    doc.setTextColor(255, 0, 0);
+    doc.text(productText, productX, y + 10);
+    doc.setTextColor(0, 0, 0);
+
+    y += 20;
+
+    order.items.forEach((item, index) => {
+      const productTitle = item.product_name || 'No product name available'; 
+      const productDescription = item.description || 'No description available'; 
+    
+      doc.setTextColor(255, 130, 0); 
+      doc.text(`Product Name:`, 14, y); 
+      
+      doc.setTextColor(0, 0, 0);
+      doc.text(productTitle, 70, y);
+      
+    
+      doc.setTextColor(255, 130, 0); 
+      doc.text(`Quantity:`, 14, y + 10);
+      
+      doc.setTextColor(0, 0, 0);
+      doc.text(`${item.quantity}`, 70, y + 10); 
+    
+      doc.setTextColor(255, 130, 0); 
+      doc.text(`Price Of One Product:`, 14, y + 20); 
+    
+      doc.setTextColor(0, 0, 0);
+      doc.text(`MAD ${item.price}`, 70, y + 20); 
+    
+      doc.setTextColor(255, 130, 0); 
+      doc.text(`Product Description:`, 14, y + 30); 
+      
+      doc.setTextColor(0, 0, 0);
+      doc.text(productDescription, 70, y + 30); 
+    
+      y += 60; 
+    });
+        
+    doc.save(`${order.name}.pdf`);
+  };
+
   if (loading) {
     return <div className="text-gray-600 text-center">Loading...</div>;
   }
@@ -71,10 +167,8 @@ const OrderScreen = () => {
           <OrderDetail label="Name" value={order.name} />
           <OrderDetail label="Email" value={order.email} />
           <OrderDetail label="Phone" value={order.phone} />
-          <OrderDetail label="Status" value={order.order_status} />
           <OrderDetail label="Total Price" value={`MAD ${order.total_price}`} />
-          <OrderDetail label="Payment Method" value={order.payment_method} />
-          <OrderDetail label="Shipping Address" value={order.shiping_address} />
+          <OrderDetail label="Shipping Address" value={order.shipping_address} />
           <OrderDetail label="Order Date" value={new Date(order.created_at).toLocaleString()} />
 
           <img 
@@ -119,12 +213,18 @@ const OrderScreen = () => {
               >
                 {emailSent ? 'Email Sent' : 'Complete Order'}
               </button>
+              <button 
+                className="bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 transition duration-200 ml-4"
+                onClick={downloadPDF}
+              >
+                Download PDF
+              </button>
             </div>
           )}
 
           {emailStatus && (
             <div className="mt-4 text-center">
-              <p className={`text-lg ${emailStatus.includes('successfully') ? 'text-green-500' : 'text-green-600'}`}>
+              <p className={`text-lg ${emailStatus.includes('successfully') ? 'text-green-500' : 'text-red-600'}`}>
                 {emailStatus}
               </p>
             </div>
