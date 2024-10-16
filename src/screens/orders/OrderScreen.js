@@ -3,10 +3,12 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 const OrderScreen = () => {
-  const { id } = useParams(); // Get order ID from URL params
+  const { id } = useParams();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [emailStatus, setEmailStatus] = useState(null);
+  const [emailSent, setEmailSent] = useState(false); 
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -18,6 +20,7 @@ const OrderScreen = () => {
           },
         });
         setOrder(response.data.data);
+        setEmailSent(false);
         console.log(response.data.data.items);
       } catch (err) {
         setError('Failed to fetch order details');
@@ -29,7 +32,24 @@ const OrderScreen = () => {
     fetchOrder();
   }, [id]);
 
-  // Loading and Error States
+  const handleFinalCommand = async () => {
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      await axios.post(`${process.env.REACT_APP_BACKEND_APP_URL}/api/send-email`, {
+        orderId: order.id,
+        email: order.email,
+      }, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setEmailStatus('Thank you for your order, we will contact you soon!'); 
+      setEmailSent(true); 
+    } catch (err) {
+      setEmailStatus('Failed to send email.'); 
+    }
+  };
+
   if (loading) {
     return <div className="text-gray-600 text-center">Loading...</div>;
   }
@@ -57,54 +77,64 @@ const OrderScreen = () => {
           <OrderDetail label="Shipping Address" value={order.shiping_address} />
           <OrderDetail label="Order Date" value={new Date(order.created_at).toLocaleString()} />
 
-          {/* Image Section */}
           <img 
             src={`${process.env.REACT_APP_BACKEND_APP_URL}/storage/${order.image}`} 
             alt="Order Image" 
             className="w-full h-auto mb-6 object-cover" 
           />
 
-          {/* Product Info Section */}
           <h2 className="text-xl font-semibold mb-4">Product Info:</h2>
           <ul className="space-y-4">
-          {order.items.map((item, index) => {
-                // Since item.product is undefined, we'll use item.product_name instead
-                const productTitle = item.product_name || 'No product name available'; // Handle null case
-                const productDescription = item.description || 'No description available'; // Optional
+            {order.items.map((item, index) => {
+                const productTitle = item.product_name || 'No product name available'; 
+                const productDescription = item.description || 'No description available'; 
 
                 return (
                     <li key={index} className="border-b pb-4">
-                    <div className="flex flex-col md:flex-row items-start md:items-center">
-                        {/* Placeholder image if item.product.image doesn't exist */}
+                      <div className="flex flex-col md:flex-row items-start md:items-center">
                         <img 
-                        src={`${process.env.REACT_APP_BACKEND_APP_URL}/storage/${item.image}`} 
-                        alt={productTitle} 
-                        className="w-full md:w-1/4 h-auto object-cover mb-4 md:mb-0 md:mr-4" 
+                          src={`${process.env.REACT_APP_BACKEND_APP_URL}/storage/${item.image}`} 
+                          alt={productTitle} 
+                          className="w-full md:w-1/4 h-auto object-cover mb-4 md:mb-0 md:mr-4" 
                         />
                         <div>
-                        <h3 className="text-lg font-semibold"><b>Product Name:</b> {productTitle}</h3>
-                        <p className="text-gray-600"><b>Quantity:</b> {item.quantity}</p>
-                        <p className="text-gray-600"><b>Price Of One Product:</b> MAD {item.price}</p>
-                        <p className="text-gray-600"><b>Product Description:</b> {productDescription}</p>
+                          <h3 className="text-lg font-semibold"><b>Product Name:</b> {productTitle}</h3>
+                          <p className="text-gray-600"><b>Quantity:</b> {item.quantity}</p>
+                          <p className="text-gray-600"><b>Price Of One Product:</b> MAD {item.price}</p>
+                          <p className="text-gray-600"><b>Product Description:</b> {productDescription}</p>
                         </div>
-                    </div>
+                      </div>
                     </li>
                 );
-                })}
-            </ul>
-          {/* Final Command Button */}
-          <div className="mt-6 text-center">
-            <button className="bg-green-500 text-white py-2 px-6 rounded hover:bg-green-600 transition duration-200">
-              Final Command
-            </button>
-          </div>
+            })}
+          </ul>
+
+          {/* Complete Order Button */}
+          {order && (
+            <div className="mt-6 text-center">
+              <button 
+                className={`bg-green-500 text-white py-2 px-6 rounded hover:bg-green-600 transition duration-200 ${emailSent ? 'opacity-50 cursor-not-allowed' : ''}`}
+                onClick={handleFinalCommand}
+                disabled={emailSent} 
+              >
+                {emailSent ? 'Email Sent' : 'Complete Order'}
+              </button>
+            </div>
+          )}
+
+          {emailStatus && (
+            <div className="mt-4 text-center">
+              <p className={`text-lg ${emailStatus.includes('successfully') ? 'text-green-500' : 'text-green-600'}`}>
+                {emailStatus}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-// OrderDetail Component for better structure and reusability
 const OrderDetail = ({ label, value }) => (
   <p className="text-gray-600 mb-2">
     <strong>{label}:</strong> {value}
