@@ -14,28 +14,34 @@ import SearchResultsScreen from "./screens/products/SearchResultsScreen";
 import OfferScreen from "./screens/offers/OfferScreen";
 import CartScreen from "./screens/carts/CartScreen";
 import OrderScreen from "./screens/orders/OrderScreen";
+import { Provider } from "react-redux";
+import store from "./redux/store/store";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomeScreen />} />
-          <Route path="login" element={<LoginScreen />} />
-          <Route path="register" element={<RegisterScreen />} />
-          <Route path="reset" element={<ResetScreen />} />
-          <Route path="/categories" element={<CategoryListScreen />} />
-          <Route path="/categories/:id" element={<CategoryScreen />} />
-          <Route path="/products" element={<ProductScreen />} />
-          <Route path="/categories/:id/products" element={<ProductListScreen />} />
-          <Route path="/products/:slug" element={<ProductInfoScreen />} />
-          <Route path="/offers" element={<OfferScreen />} />
-          <Route path="/carts" element={<CartScreen />} />
-          <Route path="/orders/:id" element={<OrderScreen />} />
-          <Route path="/search" element={<SearchResultsScreen />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}> 
+    
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<HomeScreen />} />
+            <Route path="login" element={<LoginScreen />} />
+            <Route path="register" element={<RegisterScreen />} />
+            <Route path="reset" element={<ResetScreen />} />
+            <Route path="/categories" element={<CategoryListScreen />} />
+            <Route path="/categories/:id" element={<CategoryScreen />} />
+            <Route path="/products" element={<ProductScreen />} />
+            <Route path="/categories/:id/products" element={<ProductListScreen />} />
+            <Route path="/products/:slug" element={<ProductInfoScreen />} />
+            <Route path="/offers" element={<OfferScreen />} />
+            <Route path="/carts" element={<CartScreen />} />
+            <Route path="/orders/:id" element={<OrderScreen />} />
+            <Route path="/search" element={<SearchResultsScreen />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+
+    </Provider>
   );
 }
 

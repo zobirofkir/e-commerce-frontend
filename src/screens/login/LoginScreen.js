@@ -1,36 +1,19 @@
-import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { LoginAction } from "../../redux/actions/LoginAction";
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleLogin = async (e) => {
+  const dispatch = useDispatch();
+
+  const { loading, error } = useSelector((state) => state.login);
+
+  const handleLogin = (e) => {
     e.preventDefault();
 
-    const data = {
-      email,
-      password,
-    };
-
-    try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_APP_URL}/api/users/login`, data);
-      if (response.status === 200) {
-        localStorage.setItem('accessToken', response.data.data.accessToken);
-        localStorage.setItem('name', response.data.data.name);
-        localStorage.setItem('email', response.data.data.email);
-        window.location.href = '/';
-      }
-    } catch (err) {
-
-      if (err.response && err.response.status === 401) {
-        setError('Invalid credentials. Please check your email and password.');
-      } else {
-        setError('Login failed. Please try again.');
-      }
-      console.error(err);
-    }
+    dispatch(LoginAction(email, password));
   };
 
   return (
@@ -40,7 +23,12 @@ const LoginScreen = () => {
         <form onSubmit={handleLogin}>
           {error && <p className="text-red-500 mb-4">{error}</p>}
           <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Your Email</label>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Your Email
+            </label>
             <input
               type="email"
               id="email"
@@ -52,7 +40,12 @@ const LoginScreen = () => {
             />
           </div>
           <div className="mb-6">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Password
+            </label>
             <input
               type="password"
               id="password"
@@ -66,16 +59,23 @@ const LoginScreen = () => {
           <button
             type="submit"
             className="w-full py-2 bg-gray-600 text-white font-semibold rounded-md hover:bg-gray-500 transition duration-200"
+            disabled={loading}
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
           <p className="mt-4 text-sm text-center">
-            Don't have an account? 
-            <a href="/register" className="text-gray-600 hover:underline"> Sign Up</a>
+            Don't have an account?
+            <a href="/register" className="text-gray-600 hover:underline">
+              {" "}
+              Sign Up
+            </a>
           </p>
           <p className="mt-4 text-sm text-center">
-            Forget your password? 
-            <a href="/reset" className="text-gray-600 hover:underline"> Reset</a>
+            Forget your password?
+            <a href="/reset" className="text-gray-600 hover:underline">
+              {" "}
+              Reset
+            </a>
           </p>
         </form>
       </div>

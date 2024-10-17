@@ -1,37 +1,19 @@
-import axios from 'axios';
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {ResetAction } from '../../redux/actions/ResetAction';
 
 const ResetScreen = () => {
   const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
 
-  const handleReset = async (e) => {
+  const dispatch = useDispatch();
+
+  const {loading, error} = useSelector((state) => state.reset);
+
+  const handleReset = (e) => {
     e.preventDefault();
 
-    const data = {
-      email,
-    };
-
-    setLoading(true);
-
-    try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_APP_URL}/api/users/password/email`, data);
-      if (response.status === 200) {
-        console.log(response.data);
-        window.location.href = '/';
-      }
-    } catch (err) {
-      setLoading(false);
-
-      if (err.response && err.response.status === 401) {
-        setError('Sorry, we could not find a user with that email.');
-      } else {
-        setError('Sorry, we could not find a user with that email please try again later.');
-      }
-      console.error(err);
-    }
-  };
+    dispatch(ResetAction(email));
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -56,7 +38,7 @@ const ResetScreen = () => {
             className="w-full py-2 bg-gray-600 text-white font-semibold rounded-md hover:bg-gray-500 transition duration-200"
             disabled={loading}
           >
-            {loading ? 'Please Wait...' : 'Reset'}
+            {loading ? "Please Wait..." : "Reset Password"}
           </button>
         </form>
       </div>

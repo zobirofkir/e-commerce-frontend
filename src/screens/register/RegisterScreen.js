@@ -1,37 +1,21 @@
-import axios from 'axios';
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {RegisterAction} from '../../redux/actions/RegisterAction';
 
 const RegisterScreen = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
+  const dispatch = useDispatch();
 
-  const registerUser = async (e) => {
+  const {error} = useSelector((state) => state.register);
+
+  const registerUser = (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      setError('Passwords do not match.');
-      return;
-    }
-
-    const data = {
-      name,
-      email,
-      password,
-    };
-
-    try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_APP_URL}/api/users/register`, data);
-      if (response.status === 201) {
-        window.location.href = '/login';
-      };
-    } catch (err) {
-      console.error(err);
-      setError('Registration failed. Please try again.');
-    }
-  };
+    dispatch(RegisterAction(name, email, password, confirmPassword));
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
