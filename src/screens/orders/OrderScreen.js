@@ -2,37 +2,22 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import jsPDF from 'jspdf';
+import { useDispatch, useSelector } from 'react-redux';
+import { OrderAction } from '../../redux/actions/OrderAction';
 
 const OrderScreen = () => {
   const { id } = useParams();
-  const [order, setOrder] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [emailStatus, setEmailStatus] = useState(null);
   const [emailSent, setEmailSent] = useState(false); 
 
-  useEffect(() => {
-    const fetchOrder = async () => {
-      try {
-        const accessToken = localStorage.getItem('accessToken');
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_APP_URL}/api/orders/${id}`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        setOrder(response.data.data);
-        console.log(response.data.data);
-        setEmailSent(false);
-        console.log(response.data.data.items);
-      } catch (err) {
-        setError('Failed to fetch order details');
-      } finally {
-        setLoading(false);
-      }
-    };
+  const dispatch = useDispatch();
 
-    fetchOrder();
-  }, [id]);
+  const {loading, order} = useSelector((state) => state.order);
+
+  useEffect(() => {
+    dispatch(OrderAction(id));
+  }, [dispatch, id]);
 
   const handleFinalCommand = async () => {
     try {
