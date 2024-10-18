@@ -154,7 +154,7 @@ const OrderScreen = () => {
           <OrderDetail label="Total Price" value={`MAD ${order.total_price}`} />
           <OrderDetail label="Shipping Address" value={order.shipping_address} />
           <OrderDetail label="Order Date" value={new Date(order.created_at).toLocaleString()} />
-          
+             
           <h2 className="text-xl font-semibold mb-4">Product Info:</h2>
           <ul className="space-y-4">
             {order.items.map((item, index) => {
