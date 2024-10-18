@@ -7,13 +7,12 @@ import { OrderAction } from '../../redux/actions/OrderAction';
 
 const OrderScreen = () => {
   const { id } = useParams();
-  const [error, setError] = useState(null);
   const [emailStatus, setEmailStatus] = useState(null);
   const [emailSent, setEmailSent] = useState(false); 
 
   const dispatch = useDispatch();
 
-  const {loading, order} = useSelector((state) => state.order);
+  const {loading, order, error} = useSelector((state) => state.order);
 
   useEffect(() => {
     dispatch(OrderAction(id));
@@ -155,13 +154,7 @@ const OrderScreen = () => {
           <OrderDetail label="Total Price" value={`MAD ${order.total_price}`} />
           <OrderDetail label="Shipping Address" value={order.shipping_address} />
           <OrderDetail label="Order Date" value={new Date(order.created_at).toLocaleString()} />
-
-          <img 
-            src={`${process.env.REACT_APP_BACKEND_APP_URL}/storage/${order.image}`} 
-            alt="Order Image" 
-            className="w-full h-auto mb-6 object-cover" 
-          />
-
+          
           <h2 className="text-xl font-semibold mb-4">Product Info:</h2>
           <ul className="space-y-4">
             {order.items.map((item, index) => {
